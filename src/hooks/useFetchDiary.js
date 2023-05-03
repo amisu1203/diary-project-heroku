@@ -13,7 +13,7 @@ export const useFetchDiaries = () => {
 
   useEffect(() => {
     const fetchDiaries = async () => {
-      const { data } = await axiosInstance.get("/posts");
+      const { data } = await axiosInstance.get("../api/posts");
       console.log(data);
       // 최신 순으로 정렬
       const sortedData = data.sort((a, b) => new Date(b.createAt) - new Date(a.createAt));
@@ -32,7 +32,7 @@ export const usePostDiary = () => {
 
   const postDiary = async (newDiary) => {
     setIsPosting(true);
-    const { data } = await axiosInstance.post("/posts", newDiary);
+    const { data } = await axiosInstance.post("../api/posts", newDiary);
     setIsPosting(false);
     // 새로운 일기 redux에도 추가
     dispatch(addDiary({ ...newDiary, id: data.id }));
@@ -47,7 +47,7 @@ export const useDeleteDiary = () => {
 
   const deleteDiary = async (id) => {
     setIsDeleting(true);
-    await axiosInstance.delete(`/posts/${id}`);
+    await axiosInstance.delete(`../api/posts/${id}`);
     setIsDeleting(false);
     // 삭제된 일기를 Redux store에서도 제거
     dispatch(deleteDiaryById(id));
