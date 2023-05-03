@@ -14,6 +14,7 @@ export const useFetchDiaries = () => {
   useEffect(() => {
     const fetchDiaries = async () => {
       const { data } = await axiosInstance.get("/posts");
+      console.log(data);
       // 최신 순으로 정렬
       const sortedData = data.sort((a, b) => new Date(b.createAt) - new Date(a.createAt));
       dispatch(setDiaries(sortedData));
